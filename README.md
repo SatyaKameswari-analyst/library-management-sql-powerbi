@@ -38,10 +38,13 @@ The database consists of 4 tables:
 Each table includes relevant columns and relationships.
 
 --Creating Database
+
 CREATE DATABASE LibraryDB
 	
 -- Creating "Books" Table
+
 DROP TABLE IF EXISTS Books
+
 CREATE TABLE Books	
 	(
 		 BookID INT PRIMARY KEY,
@@ -53,7 +56,9 @@ CREATE TABLE Books
 
 
 -- Creating "Members" Table
+
 DROP TABLE IF EXISTS Members
+
 CREATE TABLE Members 
 	(
 		 MemberID INT PRIMARY KEY,
@@ -63,7 +68,9 @@ CREATE TABLE Members
 
 
 -- Creating "Issues" Table
+
 DROP TABLE IF EXISTS Issues
+
 CREATE TABLE Issues 
 	(
 		 IssueID INT PRIMARY KEY,
@@ -77,7 +84,9 @@ CREATE TABLE Issues
 
 
 -- Creating "Returns" Table
+
 DROP TABLE IF EXISTS Returns
+
 CREATE TABLE Returns 
 	(
 		 ReturnID INT PRIMARY KEY,
@@ -91,33 +100,40 @@ CREATE TABLE Returns
 ### 2. 💻 SQL Tasks & Queries
 
 Task 1: Get all members who joined after June 2023
+
 SELECT * FROM Members 
 WHERE JoinDate > '2023-06-01'
 
 Task 2: Find all books in the 'Programming' genre
+
 SELECT * FROM Books
 WHERE Genre = 'Programming'
 
 Task 3: Find books with total copies between 4 and 6
+
 SELECT * FROM Books
 WHERE TotalCopies BETWEEN 4 AND 6
 
 Task 4: Find members whose name contains 'a'
+
 SELECT * FROM Members
 WHERE Name LIKE '%a%'
 
 Task 5: Count how many issues each book has
+
 SELECT BookID, COUNT(*) AS IssueCount
 FROM Issues
 GROUP BY BookID
 
 Task 6: List books by number of total copies (highest first)
+
 SELECT * FROM Books
 ORDER BY TotalCopies DESC
 
 ### 4. Data Analysis & Findings
 
 Task 7: Show all books with available copies
+
 SELECT 
     b.Title,
     b.TotalCopies,
@@ -127,6 +143,7 @@ LEFT JOIN Issues i ON b.BookID = i.BookID
 GROUP BY b.BookID, b.Title, b.TotalCopies
 
 Task 8: Most borrowed books
+
 SELECT 
     b.Title, COUNT(i.BookID) AS TimesBorrowed
 FROM Issues i
@@ -135,6 +152,7 @@ GROUP BY b.Title, b.BookID
 ORDER BY TimesBorrowed 
 
 Task 9: Active members (who borrowed more than 1 book)
+
 SELECT 
     m.Name,
     COUNT(i.IssueID) AS TotalBooksBorrowed
@@ -144,6 +162,7 @@ GROUP BY m.Name, i.MemberID
 HAVING COUNT(i.IssueID) > 1
 
 Task 10: Overdue books (not returned by due date)
+
 SELECT 
     i.IssueID,
     b.Title,
@@ -158,6 +177,7 @@ WHERE (r.ReturnDate IS NULL AND i.DueDate < CAST(GETDATE() AS DATE))
    OR (r.ReturnDate > i.DueDate)
 
 Task 11:  Monthly book issue trend
+
 SELECT 
     FORMAT(IssueDate, 'yyyy-MM') AS Month,
     COUNT(*) AS TotalIssues
@@ -212,6 +232,6 @@ GitHub: [https://github.com/SatyaKameswari-analyst]
 ---
 
 ## 📁 Files in this Project
-- 📄 [SQL Project Script]( SQL%20 Project.sql)
-- 📊 [Power BI Report]( LIbrary %20Insights %20Report.pbix)
-- 🖼 [See Screenshots]( Library%20 Management%20 System%20 Analysis %20SQL)
+- 📄 [SQL Project Script](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/EZvAnO_mzU9Av4CCwpom__sBnjZZgiC2wnbriC4u3YC3Kg?e=n6hNCj)
+- 📊 [Power BI Report](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/Ef8EXncNUzFCogifl30JBWoB2JL21sxvJEgHgqOs7ASVBg?e=Kg1JRk)
+- 🖼 [See Screenshots](https://1drv.ms/f/c/8aa5a3f9e1b2e1cb/Ely6Jlrq64VErzUOSOsUtdsB2UGEX7zTrbO-c5X4yoBh4g?e=SKw3YN)
