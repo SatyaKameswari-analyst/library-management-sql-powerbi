@@ -37,28 +37,23 @@ The database consists of 4 tables:
 - *Returns* (ReturnID, IssueID, ReturnDate)
 Each table includes relevant columns and relationships.
 
---Creating Database
+```sql
+-- Creating Database
+CREATE DATABASE LibraryDB;
 
-CREATE DATABASE LibraryDB
-	
 -- Creating "Books" Table
-
-DROP TABLE IF EXISTS Books
-
-CREATE TABLE Books	
-	(
-		 BookID INT PRIMARY KEY,
-		 Title VARCHAR(100),
-		 Author VARCHAR(100),
-		 Genre VARCHAR(50),
-		 TotalCopies INT
-	)
+DROP TABLE IF EXISTS Books;
+CREATE TABLE Books (
+  BookID INT PRIMARY KEY,
+  Title VARCHAR(100),
+  Author VARCHAR(100),
+  Genre VARCHAR(50),
+  TotalCopies INT
+);
 
 
 -- Creating "Members" Table
-
 DROP TABLE IF EXISTS Members
-
 CREATE TABLE Members 
 	(
 		 MemberID INT PRIMARY KEY,
@@ -68,9 +63,7 @@ CREATE TABLE Members
 
 
 -- Creating "Issues" Table
-
 DROP TABLE IF EXISTS Issues
-
 CREATE TABLE Issues 
 	(
 		 IssueID INT PRIMARY KEY,
@@ -84,9 +77,7 @@ CREATE TABLE Issues
 
 
 -- Creating "Returns" Table
-
 DROP TABLE IF EXISTS Returns
-
 CREATE TABLE Returns 
 	(
 		 ReturnID INT PRIMARY KEY,
@@ -94,46 +85,47 @@ CREATE TABLE Returns
 		 ReturnDate DATE,
 		 FOREIGN KEY (IssueID) REFERENCES Issues(IssueID)
 	)
-
+```
 ---
 
 ### 2. 💻 SQL Tasks & Queries
 
 Task 1: Get all members who joined after June 2023
-
+```sql
 SELECT * FROM Members 
 WHERE JoinDate > '2023-06-01'
-
+```
 Task 2: Find all books in the 'Programming' genre
-
+```sql
 SELECT * FROM Books
 WHERE Genre = 'Programming'
-
+```
 Task 3: Find books with total copies between 4 and 6
-
+```sql
 SELECT * FROM Books
 WHERE TotalCopies BETWEEN 4 AND 6
-
+```
 Task 4: Find members whose name contains 'a'
-
+```sql
 SELECT * FROM Members
 WHERE Name LIKE '%a%'
-
+```
 Task 5: Count how many issues each book has
-
+```sql
 SELECT BookID, COUNT(*) AS IssueCount
 FROM Issues
 GROUP BY BookID
-
+```
 Task 6: List books by number of total copies (highest first)
-
+```sql
 SELECT * FROM Books
 ORDER BY TotalCopies DESC
+```
 
 ### 4. Data Analysis & Findings
 
 Task 7: Show all books with available copies
-
+```sql
 SELECT 
     b.Title,
     b.TotalCopies,
@@ -141,18 +133,18 @@ SELECT
 FROM Books b
 LEFT JOIN Issues i ON b.BookID = i.BookID
 GROUP BY b.BookID, b.Title, b.TotalCopies
-
+```
 Task 8: Most borrowed books
-
+```sql
 SELECT 
     b.Title, COUNT(i.BookID) AS TimesBorrowed
 FROM Issues i
 JOIN Books b ON i.BookID = b.BookID
 GROUP BY b.Title, b.BookID
 ORDER BY TimesBorrowed 
-
+```
 Task 9: Active members (who borrowed more than 1 book)
-
+```sql
 SELECT 
     m.Name,
     COUNT(i.IssueID) AS TotalBooksBorrowed
@@ -160,9 +152,9 @@ FROM Members m
 JOIN Issues i ON m.MemberID = i.MemberID
 GROUP BY m.Name, i.MemberID
 HAVING COUNT(i.IssueID) > 1
-
+```
 Task 10: Overdue books (not returned by due date)
-
+```sql
 SELECT 
     i.IssueID,
     b.Title,
@@ -175,16 +167,16 @@ JOIN Members m ON i.MemberID = m.MemberID
 LEFT JOIN Returns r ON i.IssueID = r.IssueID
 WHERE (r.ReturnDate IS NULL AND i.DueDate < CAST(GETDATE() AS DATE))
    OR (r.ReturnDate > i.DueDate)
-
+```
 Task 11:  Monthly book issue trend
-
+```sql
 SELECT 
     FORMAT(IssueDate, 'yyyy-MM') AS Month,
     COUNT(*) AS TotalIssues
 FROM Issues
 GROUP BY FORMAT(IssueDate, 'yyyy-MM')
 ORDER BY Month
-
+```
 ---
 
 ## 📊 Power BI Dashboard
