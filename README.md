@@ -4,10 +4,10 @@
 
 ## 📌 Project Overview
 
-*Project Title:* Library Management System
-*Level:* Intermediate
-*Tools Used:* SQL Server, Power BI  
-*Database:* LibraryDB
+**Project Title:** Library Management System  
+**Level:** Intermediate  
+**Tools Used:** SQL Server, Power BI  
+**Database:** LibraryDB
 
 This project simulates a simple Library Management System using SQL for backend data handling and Power BI for data visualization. It helps in understanding how books are issued, returned, and how library data can be analyzed for insights.
  <img width="940" height="541" alt="image" src="https://github.com/user-attachments/assets/867790ae-6f7f-4dcd-99a7-a3fd56bf7b6d" />
@@ -90,41 +90,41 @@ CREATE TABLE Returns
 
 ### 2. 💻 SQL Tasks & Queries
 
-Task 1: Get all members who joined after June 2023
+🔍 Task 1: Get all members who joined after June 2023
 ```sql
 SELECT * FROM Members 
 WHERE JoinDate > '2023-06-01'
 ```
-Task 2: Find all books in the 'Programming' genre
+🔍 Task 2: Find all books in the 'Programming' genre
 ```sql
 SELECT * FROM Books
 WHERE Genre = 'Programming'
 ```
-Task 3: Find books with total copies between 4 and 6
+🔍 Task 3: Find books with total copies between 4 and 6
 ```sql
 SELECT * FROM Books
 WHERE TotalCopies BETWEEN 4 AND 6
 ```
-Task 4: Find members whose name contains 'a'
+🔍 Task 4: Find members whose name contains 'a'
 ```sql
 SELECT * FROM Members
 WHERE Name LIKE '%a%'
 ```
-Task 5: Count how many issues each book has
+🔍 Task 5: Count how many issues each book has
 ```sql
 SELECT BookID, COUNT(*) AS IssueCount
 FROM Issues
 GROUP BY BookID
 ```
-Task 6: List books by number of total copies (highest first)
+🔍 Task 6: List books by number of total copies (highest first)
 ```sql
 SELECT * FROM Books
 ORDER BY TotalCopies DESC
 ```
 
-### 4. Data Analysis & Findings
+### 4. 📈 Data Analysis & Findings
 
-Task 7: Show all books with available copies
+📊 Task 7: Show all books with available copies
 ```sql
 SELECT 
     b.Title,
@@ -134,7 +134,7 @@ FROM Books b
 LEFT JOIN Issues i ON b.BookID = i.BookID
 GROUP BY b.BookID, b.Title, b.TotalCopies
 ```
-Task 8: Most borrowed books
+📊 Task 8: Most borrowed books
 ```sql
 SELECT 
     b.Title, COUNT(i.BookID) AS TimesBorrowed
@@ -143,7 +143,7 @@ JOIN Books b ON i.BookID = b.BookID
 GROUP BY b.Title, b.BookID
 ORDER BY TimesBorrowed 
 ```
-Task 9: Active members (who borrowed more than 1 book)
+📊 Task 9: Active members (who borrowed more than 1 book)
 ```sql
 SELECT 
     m.Name,
@@ -153,7 +153,7 @@ JOIN Issues i ON m.MemberID = i.MemberID
 GROUP BY m.Name, i.MemberID
 HAVING COUNT(i.IssueID) > 1
 ```
-Task 10: Overdue books (not returned by due date)
+📊 Task 10: Overdue books (not returned by due date)
 ```sql
 SELECT 
     i.IssueID,
@@ -168,7 +168,7 @@ LEFT JOIN Returns r ON i.IssueID = r.IssueID
 WHERE (r.ReturnDate IS NULL AND i.DueDate < CAST(GETDATE() AS DATE))
    OR (r.ReturnDate > i.DueDate)
 ```
-Task 11:  Monthly book issue trend
+📊 Task 11:  Monthly book issue trend
 ```sql
 SELECT 
     FORMAT(IssueDate, 'yyyy-MM') AS Month,
@@ -179,35 +179,36 @@ ORDER BY Month
 ```
 ---
 
-## 📊 Power BI Dashboard
+## 🖥️ Power BI Dashboard
 
 Report built in Power BI Desktop (July 2025 version).
 
-*Key Visualizations:*
-Most Borrowed Books (Column Chart) to show which books are most in demand.
-Top Active Members (Bar Chart) identifies the most engaged members.
-Available Copies (Conditional Formatting Table) quickly identifies which books are running low.
-Monthly Book Issue Trend (Line Chart) reveals books peak and low season.
-Overdue Returns (KPI Card) highlights books overdue cases.
+**Key Visualizations:**  
+- 📊 Most Borrowed Books (Column Chart) to show which books are most in demand  
+- 📋 Top Active Members (Bar Chart) identifies the most engaged members  
+- 🟡 Available Copies (Conditional Formatting Table) quickly identifies which books are running low  
+- 📈 Monthly Book Issue Trend (Line Chart) reveals peak and low seasons  
+- 🔴 Overdue Returns (KPI Card) highlights books overdue cases
+
  <img width="940" height="529" alt="image" src="https://github.com/user-attachments/assets/39de4bb2-42ed-430f-82a3-8afc1cf6b559" />
 
 ---
 
 ### 1. 📈 Insights & Findings
-📖 Harry Potter was the most borrowed book.
-🙋 Anita Sharma borrowed the most books.
-❗ 2 books were returned late or not at all.
-🟠 Conditional formatting shows low stock books in yellow icon.
-📅 Book issues peaked in late 2024.
+📘 Harry Potter was the most borrowed book  
+🐤 Anita Sharma borrowed the most books  
+❗ 2 books were returned late or not at all  
+🟠 Conditional formatting shows low stock books in yellow icon  
+📅 Book issues peaked in late 2024
 
 ---
 
-## 🔍 How to Use
-Download SQL_Project.sql and execute in SSMS.
-Use the ER Diagram to understand schema relationships.
-Open Library Insights Report.pbix in Power BI Desktop.
-Refresh the SQL connection if needed.
-Interact with filters to explore trends.
+## ✅ How to Use
+1. Download `SQL_Project.sql` and execute in SSMS  
+2. Use the ER Diagram to understand schema relationships  
+3. Open `Library Insights Report.pbix` in Power BI Desktop  
+4. Refresh the SQL connection if needed  
+5. Interact with filters to explore trends
 
 ---
 
@@ -216,14 +217,15 @@ This project demonstrates how a simple library dataset can be turned into action
 
 ---
 
-## ✍ Author
-Satya Kameswari
-Aspiring Data Analyst | Passionate about SQL & Power BI
-GitHub: [https://github.com/SatyaKameswari-analyst]
+## ✍ Author 
+Satya Kameswari  
+Aspiring Data Analyst | Passionate about SQL & Power BI  
+🔗 GitHub: (https://github.com/SatyaKameswari-analyst)
+
 
 ---
 
 ## 📁 Files in this Project
-- 📄 [SQL Project Script](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/EZvAnO_mzU9Av4CCwpom__sBnjZZgiC2wnbriC4u3YC3Kg?e=n6hNCj)
-- 📊 [Power BI Report](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/Ef8EXncNUzFCogifl30JBWoB2JL21sxvJEgHgqOs7ASVBg?e=Kg1JRk)
-- 🖼 [See Screenshots](https://1drv.ms/f/c/8aa5a3f9e1b2e1cb/Ely6Jlrq64VErzUOSOsUtdsB2UGEX7zTrbO-c5X4yoBh4g?e=SKw3YN)
+- 📄 🔗 [SQL Project Script](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/EZvAnO_mzU9Av4CCwpom__sBnjZZgiC2wnbriC4u3YC3Kg?e=n6hNCj)
+- 📊 🔗 [Power BI Report](https://1drv.ms/u/c/8aa5a3f9e1b2e1cb/Ef8EXncNUzFCogifl30JBWoB2JL21sxvJEgHgqOs7ASVBg?e=Kg1JRk)
+- 🖼 🔗 [See Screenshots](https://1drv.ms/f/c/8aa5a3f9e1b2e1cb/Ely6Jlrq64VErzUOSOsUtdsB2UGEX7zTrbO-c5X4yoBh4g?e=SKw3YN)
